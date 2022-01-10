@@ -52,6 +52,9 @@ setup_accounts() {
     "atomicassets" \
     "atomicmarket" \
     "marco" \
+    "mitch" \
+    "jan" \
+    "andi" \
   )
 
   for account in "${accounts[@]}"; do
@@ -159,18 +162,18 @@ setup_proton() {
 setup_nft_contracts() {
   echo "====================================== Start setup_nft_contracts ======================================"
   unlock_wallet
-  # cleos create account eosio atomicassets $TESTNET_EOSIO_PUBLIC_KEY
-  # cleos create account eosio atomicmarket $TESTNET_EOSIO_PUBLIC_KEY
-  # cleos create account eosio marco $TESTNET_EOSIO_PUBLIC_KEY
-  # cleos create account eosio mitch $TESTNET_EOSIO_PUBLIC_KEY
-  # cleos create account eosio jan $TESTNET_EOSIO_PUBLIC_KEY
-  # cleos create account eosio andi $TESTNET_EOSIO_PUBLIC_KEY
-  # cleos buyram atomicassets atomicassets "1000.0000 XPR"
-  # cleos buyram atomicmarket atomicmarket "1000.0000 XPR"
-  # cleos buyram marco marco "1000.0000 XPR"
-  # cleos buyram mitch mitch "1000.0000 XPR"
-  # cleos buyram jan jan "1000.0000 XPR"
-  # cleos buyram andi andi "1000.0000 XPR"
+  cleos transfer eosio atomicassets "100000.0000 XPR"
+  cleos transfer eosio atomicmarket "100000.0000 XPR"
+  cleos transfer eosio marco "100000.0000 XPR"
+  cleos transfer eosio mitch "100000.0000 XPR"
+  cleos transfer eosio jan "100000.0000 XPR"
+  cleos transfer eosio andi "100000.0000 XPR"
+  cleos system buyram atomicassets atomicassets "1000.0000 XPR"
+  cleos system buyram atomicmarket atomicmarket "1000.0000 XPR"
+  cleos system buyram marco marco "1000.0000 XPR"
+  cleos system buyram mitch mitch "1000.0000 XPR"
+  cleos system buyram jan jan "1000.0000 XPR"
+  cleos system buyram andi andi "1000.0000 XPR"
   cleos set contract atomicassets ./contracts/atomicassets
   cleos set contract atomicmarket ./contracts/atomicmarket
   lock_wallet
