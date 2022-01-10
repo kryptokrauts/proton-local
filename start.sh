@@ -19,6 +19,7 @@ genesis() {
   --blocks-dir blocks \
   --delete-all-blocks \
   --genesis-json genesis.json \
+  --disable-replay-opts \
   >> "nodeos.log" 2>&1 &
 
   while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:8888/v1/chain/get_info)" != "200" ]]; 
@@ -48,6 +49,9 @@ setup_accounts() {
     "eosio.token" \
     "eosio.vpay" \
     "eosio.rex" \
+    "atomicassets" \
+    "atomicmarket" \
+    "marco" \
   )
 
   for account in "${accounts[@]}"; do
@@ -152,6 +156,26 @@ setup_proton() {
   echo "====================================== Done setup_proton ======================================"
 }
 
+setup_nft_contracts() {
+  echo "====================================== Start setup_nft_contracts ======================================"
+  unlock_wallet
+  # cleos create account eosio atomicassets $TESTNET_EOSIO_PUBLIC_KEY
+  # cleos create account eosio atomicmarket $TESTNET_EOSIO_PUBLIC_KEY
+  # cleos create account eosio marco $TESTNET_EOSIO_PUBLIC_KEY
+  # cleos create account eosio mitch $TESTNET_EOSIO_PUBLIC_KEY
+  # cleos create account eosio jan $TESTNET_EOSIO_PUBLIC_KEY
+  # cleos create account eosio andi $TESTNET_EOSIO_PUBLIC_KEY
+  # cleos buyram atomicassets atomicassets "1000.0000 XPR"
+  # cleos buyram atomicmarket atomicmarket "1000.0000 XPR"
+  # cleos buyram marco marco "1000.0000 XPR"
+  # cleos buyram mitch mitch "1000.0000 XPR"
+  # cleos buyram jan jan "1000.0000 XPR"
+  # cleos buyram andi andi "1000.0000 XPR"
+  cleos set contract atomicassets ./contracts/atomicassets
+  cleos set contract atomicmarket ./contracts/atomicmarket
+  lock_wallet
+}
+
 start() {
   echo "====================================== Start ======================================"
   nodeos \
@@ -182,6 +206,7 @@ if [ ! -f inited ]; then
   setup_accounts
   setup_contracts
   setup_proton
+  setup_nft_contracts
   touch inited
 else
   start

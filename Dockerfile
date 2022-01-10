@@ -43,5 +43,6 @@ COPY ./config.ini ./config/
 COPY ./genesis.json ./
 COPY --from=eosio.contracts.v1.8.x /app/eosio.contracts/build/contracts ./eosio.contracts.v1.8.x
 COPY --from=eosio.contracts.v2.0.x /app/eosio.contracts/build/contracts ./eosio.contracts.v2.0.x
+COPY ./contracts ./contracts
 
 CMD ["./start.sh"]
