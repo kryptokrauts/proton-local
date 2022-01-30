@@ -55,6 +55,7 @@ setup_accounts() {
     "mitch" \
     "jan" \
     "andi" \
+    "powerofsoon" \
   )
 
   for account in "${accounts[@]}"; do
@@ -159,8 +160,8 @@ setup_proton() {
   echo "====================================== Done setup_proton ======================================"
 }
 
-setup_nft_contracts() {
-  echo "====================================== Start setup_nft_contracts ======================================"
+fund_accounts() {
+  echo "====================================== Start fund_accounts ======================================"
   unlock_wallet
   cleos transfer eosio atomicassets "100000.0000 XPR"
   cleos transfer eosio atomicmarket "100000.0000 XPR"
@@ -168,15 +169,25 @@ setup_nft_contracts() {
   cleos transfer eosio mitch "100000.0000 XPR"
   cleos transfer eosio jan "100000.0000 XPR"
   cleos transfer eosio andi "100000.0000 XPR"
+  cleos transfer eosio powerofsoon "100000.0000 XPR"
   cleos system buyram atomicassets atomicassets "1000.0000 XPR"
   cleos system buyram atomicmarket atomicmarket "1000.0000 XPR"
   cleos system buyram marco marco "1000.0000 XPR"
   cleos system buyram mitch mitch "1000.0000 XPR"
   cleos system buyram jan jan "1000.0000 XPR"
   cleos system buyram andi andi "1000.0000 XPR"
+  cleos system buyram powerofsoon powerofsoon "1000.0000 XPR"
+  lock_wallet
+  echo "====================================== Done fund_accounts ======================================"
+}
+
+setup_nft_contracts() {
+  echo "====================================== Start setup_nft_contracts ======================================"
+  unlock_wallet
   cleos set contract atomicassets ./contracts/atomicassets
   cleos set contract atomicmarket ./contracts/atomicmarket
   lock_wallet
+  echo "====================================== Done setup_nft_contracts ======================================"
 }
 
 start() {
@@ -209,7 +220,8 @@ if [ ! -f inited ]; then
   setup_accounts
   setup_contracts
   setup_proton
-  setup_nft_contracts
+  fund_accounts
+  setup_nft_contracts  
   touch inited
 else
   start
