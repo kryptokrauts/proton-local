@@ -186,6 +186,9 @@ setup_nft_contracts() {
   unlock_wallet
   cleos set contract atomicassets ./contracts/atomicassets
   cleos set contract atomicmarket ./contracts/atomicmarket
+  echo "====================================== Setting active permissions for contracts========================="
+  cleos set account permission atomicassets active --add-code -p atomicassets@active
+  cleos set account permission atomicmarket active --add-code -p atomicmarket@active
   lock_wallet
   echo "====================================== Done setup_nft_contracts ======================================"
 }
