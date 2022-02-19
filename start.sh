@@ -170,8 +170,8 @@ fund_accounts() {
   cleos transfer eosio jan "100000.0000 XPR"
   cleos transfer eosio andi "100000.0000 XPR"
   cleos transfer eosio powerofsoon "100000.0000 XPR"
-  cleos system buyram atomicassets atomicassets "1000.0000 XPR"
-  cleos system buyram atomicmarket atomicmarket "1000.0000 XPR"
+  cleos system buyram atomicassets atomicassets "60000.0000 XPR"
+  cleos system buyram atomicmarket atomicmarket "60000.0000 XPR"
   cleos system buyram marco marco "1000.0000 XPR"
   cleos system buyram mitch mitch "1000.0000 XPR"
   cleos system buyram jan jan "1000.0000 XPR"
@@ -199,6 +199,7 @@ start() {
   --config-dir config \
   --data-dir data \
   --blocks-dir blocks \
+  --disable-replay-opts \
   >> "nodeos.log" 2>&1 &
   sleep 10;
 
@@ -209,6 +210,7 @@ start() {
     --data-dir data \
     --blocks-dir blocks \
     --hard-replay-blockchain \
+    --disable-replay-opts \
     >> "nodeos.log" 2>&1 & \
   fi
 }
