@@ -16,7 +16,7 @@ RUN cd /app/eosio.contracts \
   && git checkout release/1.8.x \
   && ./build.sh -c /usr/local/eosio.cdt
 
-FROM eosio/eosio:release_2.0.x as eosio.contracts.v2.0.x
+FROM eosio/eosio:release_2.1.x as eosio.contracts.v2.1.x
 WORKDIR /app
 
 # install dependencies
@@ -33,7 +33,7 @@ RUN git clone https://github.com/ProtonProtocol/proton.contracts.git eosio.contr
 RUN cd /app/eosio.contracts \
   && ./build.sh -c /usr/local/eosio.cdt
 
-FROM eosio/eosio:release_2.0.x as nodeos
+FROM eosio/eosio:release_2.1.x as nodeos
 WORKDIR /app
 ENV TESTNET_EOSIO_PRIVATE_KEY 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
 ENV TESTNET_EOSIO_PUBLIC_KEY EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
@@ -42,7 +42,7 @@ COPY ./start.sh ./
 COPY ./config.ini ./config/
 COPY ./genesis.json ./
 COPY --from=eosio.contracts.v1.8.x /app/eosio.contracts/build/contracts ./eosio.contracts.v1.8.x
-COPY --from=eosio.contracts.v2.0.x /app/eosio.contracts/build/contracts ./eosio.contracts.v2.0.x
+COPY --from=eosio.contracts.v2.1.x /app/eosio.contracts/build/contracts ./eosio.contracts.v2.1.x
 COPY ./contracts ./contracts
 
 CMD ["./start.sh"]

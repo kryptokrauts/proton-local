@@ -110,16 +110,16 @@ setup_contracts() {
   sleep 1
 
   # Deploy new system contract
-  cleos set code eosio ./eosio.contracts.v2.0.x/eosio.system/eosio.system.wasm -j -d -s -x 3600 > trx
+  cleos set code eosio ./eosio.contracts.v2.1.x/eosio.system/eosio.system.wasm -j -d -s -x 3600 > trx
   cleos sign trx -k $TESTNET_EOSIO_PRIVATE_KEY -p > trx.output
   awk 'NR==2' trx.output | tr -d '"' && rm trx trx.output
-  cleos set abi eosio ./eosio.contracts.v2.0.x/eosio.system/eosio.system.abi -j -d -s -x 3600 > trx
+  cleos set abi eosio ./eosio.contracts.v2.1.x/eosio.system/eosio.system.abi -j -d -s -x 3600 > trx
   cleos sign trx -k $TESTNET_EOSIO_PRIVATE_KEY -p > trx.output
   awk 'NR==2' trx.output | tr -d '"' && rm trx trx.output
   
   # Deploy eosio.token and eosio.msig contracts
-  cleos set contract eosio.token ./eosio.contracts.v2.0.x/eosio.token/
-  cleos set contract eosio.msig ./eosio.contracts.v2.0.x/eosio.msig/
+  cleos set contract eosio.token ./eosio.contracts.v2.1.x/eosio.token/
+  cleos set contract eosio.msig ./eosio.contracts.v2.1.x/eosio.msig/
   cleos push action eosio setpriv '["eosio.msig", 1]' -p eosio@active
   lock_wallet
   echo "====================================== Done setup_contracts ======================================"
@@ -149,7 +149,7 @@ setup_proton() {
     --stake-cpu "1.0000 XPR" \
     --buy-ram-kbytes "2048" \
     --transfer
-  cleos set contract eosio.proton ./eosio.contracts.v2.0.x/eosio.proton/
+  cleos set contract eosio.proton ./eosio.contracts.v2.1.x/eosio.proton/
   cleos set account permission admin.proton committee $TESTNET_EOSIO_PUBLIC_KEY active -p admin.proton@active
   cleos set account permission admin.proton light $TESTNET_EOSIO_PUBLIC_KEY active -p admin.proton@active
   cleos set account permission admin.proton partners $TESTNET_EOSIO_PUBLIC_KEY active -p admin.proton@active
